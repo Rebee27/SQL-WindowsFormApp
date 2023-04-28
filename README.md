@@ -13,4 +13,3 @@ Step 2:
 Generalize the project on the Step 1, such that it will work for at least 2 scenarios (2 relations 1- n from database).
 It was considered a Panel in the form to create TextBoxes for the fields of the tables involved.
 Everything that is related to tables and the CRUD operations (table name, fields, parameters, ...) is set in an XML file: App.config.
-In the AppConfig, 2 scenarios are prepared.
