@@ -16,6 +16,7 @@ namespace Lab1
         private string childColumnParam = ConfigurationManager.AppSettings["childColumnNamesInsertParam"];
 
         private string parentTableName = ConfigurationManager.AppSettings["parentTableName"];
+        private string primarykey = ConfigurationManager.AppSettings["primarykey"];
         private string parentColumnNames = ConfigurationManager.AppSettings["parentColumnNames"];
         private int nrColumnsParent = Int32.Parse(ConfigurationManager.AppSettings["parentNrColumns"]);
         
@@ -113,8 +114,8 @@ namespace Lab1
                     parentBS.DataSource = dataSet.Tables[parentTableName];
                     dataGridViewParent.DataSource = parentBS;
 
-                    DataColumn parentPK = dataSet.Tables[parentTableName].Columns[parentColumnNamesList[0]];
-                    DataColumn childFK = dataSet.Tables[childTableName].Columns[childColumnNamesList[3]];
+                    DataColumn parentPK = dataSet.Tables[parentTableName].Columns[primarykey];
+                    DataColumn childFK = dataSet.Tables[childTableName].Columns[primarykey];
                     DataRelation relation = new DataRelation("fk_parent_child", parentPK, childFK);
                     dataSet.Relations.Add(relation);
 
@@ -179,13 +180,21 @@ namespace Lab1
                 clearChildTextBox();
                 refreshTables();
 
-                // Write in TextBoxes the values of the tables
+                // Write in TextBoxes the values of the child table
                 int i = 0;
                 foreach (TextBox textBox in textBoxesChild)
                 {
                     textBox.Text = dataGridViewChild.Rows[e.RowIndex].Cells[i].Value.ToString();
                     i++;
                 }
+
+                // Write in TextBoxes the values of the parent table
+                int j = 0;
+                foreach (TextBox textBox in textBoxesParent)
+                {
+                    textBox.Text = dataGridViewParent.Rows[e.RowIndex].Cells[j].Value.ToString();
+                    j++;
+                };
             }
         }
 
@@ -262,7 +271,7 @@ namespace Lab1
                     
                     refreshTables();
 
-                    MessageBox.Show("Companie actualizata cu succes!");
+                    MessageBox.Show("Inregistrare actualizata cu succes!");
                 }
 
             }
@@ -293,7 +302,7 @@ namespace Lab1
 
                     refreshTables();
 
-                    MessageBox.Show("Companie adaugata cu succes!");
+                    MessageBox.Show("Inregistrare adaugata cu succes!");
                 }
             }
             catch (Exception ex)
@@ -318,7 +327,7 @@ namespace Lab1
 
                     refreshTables();
 
-                    MessageBox.Show("Companie stearsa cu succes!!");
+                    MessageBox.Show("Inregistrare stearsa cu succes!!");
                 }
             }
             catch (Exception ex)
